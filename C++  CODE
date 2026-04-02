@@ -1,0 +1,84 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <iomanip>
+#include <limits>
+
+using namespace std;
+
+struct Applicant {
+    string name;
+    int age;
+    int healthScore;      
+    int drivingHistory;   
+    double finalPremium;
+};
+
+double calculatePremium(int age, int health, int incidents) {
+    double premium = 500.0; 
+    
+    // Risk Logic
+    if (age < 25) premium += 150.0;     
+    if (health < 60) premium += 200.0;  
+    premium += (incidents * 75.0);      
+    
+    return premium;
+}
+
+int main() {
+    vector<Applicant> insuranceList;
+    int numApplicants;
+
+    cout << "--- AI INSURTECH RISK ASSESSMENT ENGINE ---" << endl;
+    cout << "How many applicants would you like to process? ";
+    
+    while (!(cin >> numApplicants)) {
+        cout << "Invalid input. Please enter a number: ";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+
+    for (int i = 0; i < numApplicants; i++) {
+        Applicant a;
+        cout << "\n--- Processing Applicant #" << i + 1 << " ---" << endl;
+        
+        cout << "Enter Full Name: ";
+        cin.ignore(); // Clear buffer
+        getline(cin, a.name);
+
+        cout << "Enter Age: ";
+        cin >> a.age;
+
+        cout << "Enter Health Score (1-100): ";
+        cin >> a.healthScore;
+
+        cout << "Enter Number of Driving Incidents: ";
+        cin >> a.drivingHistory;
+
+        a.finalPremium = calculatePremium(a.age, a.healthScore, a.drivingHistory);
+        
+        insuranceList.push_back(a);
+        cout << "Data saved for " << a.name << ".\n";
+    }
+
+    cout << "\n\n" << setfill('=') << setw(60) << "" << endl;
+    cout << left << setw(20) << "NAME" 
+         << setw(10) << "AGE" 
+         << setw(15) << "HEALTH" 
+         << "ESTIMATED PREMIUM" << endl;
+    cout << setfill('-') << setw(60) << "" << setfill(' ') << endl;
+
+    for (const auto& person : insuranceList) {
+        cout << left << setw(20) << person.name 
+             << setw(10) << person.age 
+             << setw(15) << person.healthScore 
+             << "$" << fixed << setprecision(2) << person.finalPremium << endl;
+    }
+
+    cout << setfill('=') << setw(60) << "" << endl;
+    cout << "Process Complete. Press Enter to Exit.";
+    cin.ignore();
+    cin.get();
+
+    return 0;
+}
