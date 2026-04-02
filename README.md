@@ -1,2 +1,2 @@
 # insurance_calculation
-
+This C++ InsurTech Risk Engine is a high-performance console application designed to simulate the core analytical backend of a modern insurance underwriting system. By leveraging Object-Oriented Programming (OOP) principles, the project demonstrates how system-level languages manage complex risk-scoring algorithms with precision and speed. The engine utilizes a custom Applicant structure to store and process multi-dimensional user data, including demographic factors, health metrics, and historical behavioral data, mimicking the data ingestion process of professional actuarial software.
